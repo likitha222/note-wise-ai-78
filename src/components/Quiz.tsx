@@ -7,7 +7,7 @@ const ORDER: Difficulty[] = ["easy", "medium", "hard"];
 function step(current: Difficulty, correct: boolean): Difficulty {
   const i = ORDER.indexOf(current);
   const next = correct ? Math.min(i + 1, 2) : Math.max(i - 1, 0);
-  return ORDER[next];
+  return ORDER[next]!;
 }
 
 export type QuizResult = { topic: string; correct: boolean; difficulty: Difficulty };
@@ -31,11 +31,11 @@ export function Quiz({
       .filter(({ i }) => !asked.includes(i));
     if (!remaining.length) return -1;
     const match = remaining.find(({ q }) => q.difficulty === difficulty);
-    return (match ?? remaining[0]).i;
+    return (match ?? remaining[0]!).i;
   }, [questions, asked, difficulty]);
 
   if (currentIndex === -1) return null;
-  const q = questions[currentIndex];
+  const q = questions[currentIndex]!;
   const number = asked.length + 1;
 
   const next = () => {
